@@ -7,7 +7,13 @@ class Predict {
         $this->db = $db;
     }
 
-    public function predict($data){
+    public function predict($data, $token){
+        $userTokenVerifier = new UserTokenVerifier($this->db);
+        $userVerified = $userTokenVerifier->userTokenVerifier($token);
+        if (!$userVerified) {
+            return BaseResponse::unauthorize();
+        }
+
         $request = new PredictRequest();
         $isRequestValid = $request->validate();
         if (!$isRequestValid){
@@ -50,6 +56,7 @@ class Predict {
         $history->FanSpeed = $fan;
         $history->ConclusionId = $predictLabel;
         $history->VerifiedByUser = $data['VerifiedByUser'];
+        $history->UserId = $userVerified;
         
         if (!$history->create()) {
             return BaseResponse::error("Gagal menyimpan data history");

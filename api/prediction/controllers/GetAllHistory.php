@@ -7,8 +7,15 @@ class GetAllHistory {
         $this->db = $db;
     }
 
-    public function getAllHistory(){
+    public function getAllHistory($token){
+        $userTokenVerifier = new UserTokenVerifier($this->db);
+        $userVerified = $userTokenVerifier->userTokenVerifier($token);
+        if (!$userVerified) {
+            return BaseResponse::unauthorize();
+        }
+
         $history = new History($this->db);
+        $history->UserId = $userVerified;
         $data = $history->getAll();
         
         if (!$data) {

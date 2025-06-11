@@ -21,9 +21,8 @@ class UpdateUserProfile {
         }
 
         $userProfile = new UserProfile($this->db);
-        $userProfile->Username = $data['Username'];
         $userProfile->Name = $data['Name'] ?? $data['Username'];
-        $userProfile->ProfileImage = $data['ProfileImage'] ?? null;
+        $userProfile->Address = $data['Address'] ?? null;
         $userProfile->UserId = $userVerified;
 
         if (!$userProfile->update()) {

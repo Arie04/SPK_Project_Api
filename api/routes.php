@@ -72,7 +72,7 @@ $routes = [
         'path' => 'prediction/predict',
         'controller' => 'Predict',
         'action' => 'predict',
-        'requiresToken' => false,
+        'requiresToken' => true,
         'requiresBody' => true,
     ],
     [
@@ -80,7 +80,7 @@ $routes = [
         'path' => 'prediction/history',
         'controller' => 'GetAllHistory',
         'action' => 'getAllHistory',
-        'requiresToken' => false,
+        'requiresToken' => true,
         'requiresBody' => false,
     ]
 ];

@@ -8,6 +8,7 @@ class UserProfile {
 
     public $UserProfileId;
     public $Name;
+    public $Address;
     public $ProfileImage;
     public $UserId;
     public $CreatedAt;
@@ -57,13 +58,12 @@ class UserProfile {
     public function update() {
         $query = "UPDATE " . $this->table_name . " p
                   JOIN users u ON p.UserId = u.UserId
-                  SET u.Username = :username, p.Name = :name, p.ProfileImage = :profileImage 
+                  SET p.Name = :name, p.Address = :address 
                   WHERE p.UserId = :userId";
 
         $stmt = $this->conn->prepare($query);        
-        $stmt->bindParam(':username', $this->Username);
         $stmt->bindParam(':name', $this->Name);
-        $stmt->bindParam(':profileImage', $this->ProfileImage);
+        $stmt->bindParam(':address', $this->Address);
         $stmt->bindParam(':userId', $this->UserId);
 
         return $stmt->execute();

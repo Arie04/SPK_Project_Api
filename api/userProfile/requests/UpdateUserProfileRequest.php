@@ -14,10 +14,12 @@ class UpdateUserProfileRequest {
             return false;
         }
 
-        if (empty($this->data['Username'])) {
-            $this->errors['Username'] = 'Username is required.';
-        } elseif (!is_string($this->data['Username'])) {
-            $this->errors['Username'] = 'Username must be a string.';
+        if (empty($this->data['Name'])) {
+            $this->errors['Name'] = 'Name is required.';
+        }
+
+        if (empty($this->data['Address'])) {
+            $this->errors['Address'] = 'Address is required.';
         }
         
         return empty($this->errors);
